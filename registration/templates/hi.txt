@@ -1,0 +1,37 @@
+how to authenticate an user
+
+first create one dummy html page and inherit the pages which we have to use using navbar
+after that create a form for login page dont use login as name because it is a function we have to use
+after creating form runserver
+then when post method gets activated we have to collect the data for that use this below code
+        varname(password)=request.POST['name of input in form(password)']
+        varname(password)=request.POST['name of input in form(password)']
+after we have to authenticate it for that we have one inbuilt method authenticate(username=value(username(collected from form)),password=value(password(collected from form)))
+authenticate method takes two keyword arguments that is username and value we have to give the collected data to it and it gives either AuthenticatedUserObject(AUO) if authentication done or else False it will do both authentication as well as authorization
+next we have to check whether the user is active or not for that we have one variable that is is_active
+if user is active we have to create a login request and session for that
+and atlast we have to send those using HttpResponseredirect which binds the login and session together and we have to send it to respective url for that we have to use reverse method
+
+    ex code:
+    if request.method=='POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        AUO=authenticate(username=username,password=password)
+        if AUO:
+            if AUO.is_active:
+                login(request,AUO)
+                request.session['username']=username   this is a dictionary
+                return HttpResponseRedirect(reverse('url(home)'))
+            else:
+                return HttpResponse('Not Active User')
+        else:
+            'Invalid Credentials'
+
+
+next in home page:
+    def home(request):
+        if request.session.get('username')
+            username=request.session.get('username')
+            d={'username':username}
+            return render(request,'home.html',d)
+        return render(request,'home.html')

@@ -1,0 +1,22 @@
+{% extends 'dummy.html' %}
+
+{% block title %}
+    <title>Registration</title>
+{% endblock %}
+
+{% block body_block %}
+    <center>
+        <h2>Registration Page</h2>
+
+        <form method="POST" enctype="multipart/form-data">    <!--enctype is used to encrypt the files/images that we're sending from frontend to backend without using this the data or files will not save   -->
+            {% csrf_token %}
+
+            {{EUFO.as_p}}
+            {{EPFO.as_p}}
+
+            <input type="submit" value="Register">
+        </form>
+    </center>
+{% endblock %}
+</body>
+</html>
